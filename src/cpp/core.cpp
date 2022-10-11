@@ -118,6 +118,40 @@ PYBIND11_MODULE(polyscope_bindings, m) {
       ps::view::lookAt(location, target, upDir, flyTo); 
   });
   m.def("set_view_projection_mode", [](ps::ProjectionMode x) { ps::view::projectionMode = x; });
+  // === my change get camera position
+  m.def("get_camera_world_position", []{return py::make_tuple(ps::view::getCameraWorldPosition()[0], ps::view::getCameraWorldPosition()[1], ps::view::getCameraWorldPosition()[2]);});
+  // === my change get camera view point matrix
+  m.def("get_camera_view_matrix", []{
+  
+  			auto a = ps::view::getCameraViewMatrix();
+  
+  			return py::make_tuple(py::make_tuple(a[0][0], a[0][1], a[0][2], a[0][3]),
+  					      py::make_tuple(a[1][0], a[1][1], a[1][2], a[1][3]),
+  					      py::make_tuple(a[2][0], a[2][1], a[2][2], a[2][3]),
+  					      py::make_tuple(a[3][0], a[3][1], a[3][2], a[3][3])
+  					      );
+  				    }
+  				    
+  	);
+  
+  
+  m.def("get_camera_perspective_matrix", []{
+  
+                        auto a = ps::view::getCameraPerspectiveMatrix();
+  
+  			return py::make_tuple(py::make_tuple(a[0][0], a[0][1], a[0][2], a[0][3]),
+  					      py::make_tuple(a[1][0], a[1][1], a[1][2], a[1][3]),
+  					      py::make_tuple(a[2][0], a[2][1], a[2][2], a[2][3]),
+  					      py::make_tuple(a[3][0], a[3][1], a[3][2], a[3][3])
+  					      );
+  				    }
+  
+  
+  	
+  	);
+  
+
+  
   
   // === Messages
   m.def("info", ps::info, "Send an info message");
