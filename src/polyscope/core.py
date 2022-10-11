@@ -125,6 +125,15 @@ def look_at_dir(camera_location, target, up_dir, fly_to=False):
 
 def set_view_projection_mode(s):
     psb.set_view_projection_mode(str_to_projection_mode(s))
+    
+def get_camera_world_position():
+    return psb.get_camera_world_position()
+    
+def get_camera_view_matrix():
+    return np.transpose(np.array(psb.get_camera_view_matrix()))
+    
+def get_camera_perspective_matrix():
+    return np.transpose(np.array(psb.get_camera_perspective_matrix()))
 
 ### Messages
 
